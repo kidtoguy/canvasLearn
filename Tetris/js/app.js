@@ -6,6 +6,38 @@
 	    cH=360,
 	    block,
 	    block86;
+	var startRowIndex=0,startColumnIndex=5;
+
+	var crT = [
+		[
+			[0,0,0,0],
+			[1,1,1,0],
+			[0,1,0,0],
+			[0,0,0,0]
+		],
+		[
+			[0,1,0,0],
+			[1,1,0,0],
+			[0,1,0,0],
+			[0,0,0,0]
+		],
+		[
+			[0,1,0,0],
+			[1,1,1,0],
+			[0,0,0,0],
+			[0,0,0,0]
+		],
+		[
+			[0,1,0,0],
+			[0,1,1,0],
+			[0,1,0,0],
+			[0,0,0,0]
+		]	
+	];
+	var crTIndex = 0,
+		arr = crT,
+		tMax = arr.length,
+		count = 0;
 
 	var app = {
 		init: function() {
@@ -26,20 +58,19 @@
 			app._cleanScreen();
 			app._drawBg();
 			app._drawBlocks();
+
+			count++;
+			if(count%20==0){
+				startRowIndex++;
+			}
 		},
 
 		//绘制方块组
 		_drawBlocks:function(){
-			var crT = [
-				[0,0,0,0],
-				[1,1,1,0],
-				[0,1,0,0],
-				[0,0,0,0]
-			];
-			var startRowIndex=0,startColumnIndex=5;
+			
 			for(var i=0;i<4;i++){
 				for(var j=0;j<4;j++){
-					if(crT[i][j]==1){
+					if(arr[crTIndex][i][j]==1){
 						app._drawBlock(startRowIndex+i,startColumnIndex+j);
 					}
 				}
@@ -65,6 +96,24 @@
 			img.src = src;
 			return img;
 		},
+		_keyDownHandler:function(event){
+			switch(event.keyCode){
+				case 37:    //left
+					startColumnIndex--;
+					app._drawBlocks();
+					break;
+				case 38:    //up
+					crTIndex = (crTIndex+1)%tMax;
+					break;
+				case 39:    //right
+					startColumnIndex++;
+					app._drawBlocks();
+					break;
+				case 40:    //down
+
+					break;
+			}
+		},	
 		//控制台方法
 		_log: function(str) {
 			var console = window.console;
@@ -74,4 +123,5 @@
 	window.onload = function() {
 		app.init();
 	};
+	window.onkeydown = app._keyDownHandler;
 })();
