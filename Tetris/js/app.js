@@ -66,7 +66,8 @@
 			}
 		},
 
-		//绘制方块�		_drawBlocks:function(){
+		//绘制方块组
+		_drawBlocks:function(){
 			
 			for(var i=0;i<4;i++){
 				for(var j=0;j<4;j++){
@@ -77,7 +78,7 @@
 			}
 		},
 
-		//绘制一个方�	
+		//绘制一个方块
 		_drawBlock:function(rowIndex,columnIndex){
 			var itemWidth = 18,itemHeight=18;
 			block = app._loadImage('img/block.png');
@@ -114,7 +115,8 @@
 					break;
 			}
 		},	
-		//控制台方�		_log: function(str) {
+		//控制台方法
+		_log: function(str) {
 			var console = window.console;
 			console.log(str);
 		}
